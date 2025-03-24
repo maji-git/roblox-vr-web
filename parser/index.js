@@ -1,6 +1,6 @@
-const axios = require("axios")
-const axiosRetry = require('axios-retry').default
-const fs = require("fs")
+import axios from "axios"
+import axiosRetry from 'axios-retry'
+import fs from "fs"
 
 axiosRetry(axios, { retries: 3, retryDelay: () => 5000 });
 
