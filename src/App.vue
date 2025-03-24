@@ -11,7 +11,7 @@ const nexusGames = ref(0)
 const loadData = async () => {
   const nativeType = (await axios.get("/data/native.json")).data
   const nexusType = (await axios.get("/data/nexus.json")).data
-  originData.value = nativeType.concat(nexusType).sort((a: any, b: any) => a.visits + b.visits)
+  originData.value = nativeType.concat(nexusType).sort((a: any, b: any) => b.visits - a.visits)
   listing.value = originData.value
 
   nativeGames.value = originData.value.filter((e: any) => e.vrType == "native").length
@@ -32,8 +32,8 @@ onMounted(() => {
         <p class="mb-0">List of Roblox VR games I found. Feel free to contribute! ^_^</p>
         <p v-if="originData" class="m-0">{{ nativeGames }} native games, and {{ nexusGames }} games with NexusVR.</p>
         <div class="column mt-3">
-          <button class="btn btn-light me-2">Contribute to the list</button>
-          <button class="btn btn-outline-light">Adding VR to your game</button>
+          <a class="btn btn-light me-2" href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list">Contribute to the list</a>
+          <a class="btn btn-outline-light" href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game">Adding VR to your game</a>
         </div>
       </div>
     </div>
