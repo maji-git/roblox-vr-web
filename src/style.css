@@ -1,0 +1,43 @@
+body {
+    font-family: "Funnel Sans", sans-serif;
+    background-color: rgb(26, 26, 26);
+}
+
+.banner {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(/bg.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin: 16px 0px;
+}
+
+.card {
+    background-color: rgb(38, 38, 38);
+    border: none;
+}
+
+.card {
+    text-decoration: none;
+}
+
+.game-thumbnail {
+    height: 198px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: hsl(0, 0%, 18%);
+}
+
+.dd-sm {
+    margin-bottom: 0.2em;
+    opacity: 0.8;
+    font-size: 1em;
+}
+
+.sidebar {
+    position: sticky;
+    top: 16px;
+}
