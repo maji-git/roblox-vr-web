@@ -103,6 +103,7 @@ async function parseTXT(url, title) {
 async function main() {
     parseTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/native.txt", "native")
     parseTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/nexus-vr.txt", "nexus")
+    parseTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/avatar-gestures.txt", "avatar-gestures")
 }
 
 main()
