@@ -36,8 +36,9 @@
     </a>
 </template>
 
-<script setup>
-import { onMounted, ref } from 'vue';
+<script setup lang="ts">
+import { ref } from 'vue';
+import { IconCardboards, IconCheck, IconSparkles, IconYoga } from "@tabler/icons-vue"
 
 const props = defineProps(['game']);
 const game = ref(props.game);

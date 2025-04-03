@@ -2,7 +2,7 @@
 import GameCard from './components/GameCard.vue';
 import { onMounted, ref } from 'vue';
 import axios from "axios"
-import { IconCardboards, IconCheck, IconExternalLink, IconPlus, IconSparkles, IconYoga } from "@tabler/icons-vue"
+import { IconExternalLink, IconPlus } from "@tabler/icons-vue"
 
 const listing = ref()
 const originData = ref()
