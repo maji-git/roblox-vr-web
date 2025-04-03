@@ -9,6 +9,7 @@ const originData = ref()
 
 const nativeGames = ref(0)
 const nexusGames = ref(0)
+const totalGames = ref(0)
 
 const loadData = async () => {
   const nativeType = (await axios.get("/data/native.json")).data
@@ -19,6 +20,8 @@ const loadData = async () => {
 
   nativeGames.value = originData.value.filter((e: any) => e.vrType == "native").length
   nexusGames.value = originData.value.filter((e: any) => e.vrType == "nexus").length
+
+  totalGames.value = originData.value.length
 }
 
 // https://assetdelivery.roblox.com/v1/asset/?id=15330287933
@@ -29,8 +32,8 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <div class="w-100 p-4 banner">
-      <div class="text-center">
+    <div class="w-100 banner">
+      <div>
         <h1>Roblox VR Games Listing</h1>
         <p class="mb-0">List of Roblox VR games I found. Feel free to contribute! ^_^</p>
         <p v-if="originData" class="m-0">{{ nativeGames }} native games, and {{ nexusGames }} games with NexusVR.</p>
@@ -39,6 +42,21 @@ onMounted(() => {
             href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list"><IconPlus :size="18"/> Contribute to the list</a>
           <a class="btn btn-outline-light"
             href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game"><IconExternalLink :size="18"/> Adding VR to your game</a>
+        </div>
+
+        <div class="stats row">
+          <div class="col-md-3">
+            <p class="sub">NATIVE</p>
+            <h1 class="num">{{ nativeGames }}</h1>
+          </div>
+          <div class="col-md-3">
+            <p class="sub">NEXUS</p>
+            <h1 class="num">{{ nexusGames }}</h1>
+          </div>
+          <div class="col-md-3">
+            <p class="sub">TOTAL</p>
+            <h1 class="num">{{ totalGames }}</h1>
+          </div>
         </div>
       </div>
     </div>

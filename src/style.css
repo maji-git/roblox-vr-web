@@ -6,13 +6,30 @@ body {
 .banner {
     height: 400px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: flex-end;
     background-image: url(/bg.png);
     background-size: cover;
     background-position: center;
     border-radius: 8px;
     margin: 16px 0px;
+    position: relative;
+    padding-left: 4.5em;
+    padding-bottom: 3em;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .banner {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 1em;
+    }
+
+    .banner .stats {
+        display: none;
+    }
 }
 
 .badge svg {
@@ -46,4 +63,36 @@ body {
 .sidebar {
     position: sticky;
     top: 16px;
+}
+
+.banner .stats {
+    position: absolute;
+    bottom: 1em;
+    right: 30px;
+    text-align: end;
+    font-family: "Funnel Display", sans-serif;
+}
+
+.banner .stats > div {
+    width: 160px;
+}
+
+.banner .stats p {
+    margin: 0;
+}
+
+.banner .stats .sub {
+    font-style: italic;
+    width: 100%;
+    font-size: 1.25em;
+    opacity: 0.8;
+}
+
+.banner .stats .num {
+    font-size: 7em;
+    font-weight: 600;
+    background: linear-gradient(to bottom, #ffffff, #ffffff00);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    height: 120px;
 }
