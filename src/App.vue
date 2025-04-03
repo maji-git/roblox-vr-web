@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import GameCard from './components/GameCard.vue';
 import { onMounted, ref } from 'vue';
 import axios from "axios"
+import { IconCardboards, IconCheck, IconExternalLink, IconPlus, IconSparkles, IconYoga } from "@tabler/icons-vue"
 
 const listing = ref()
 const originData = ref()
@@ -34,11 +36,9 @@ onMounted(() => {
         <p v-if="originData" class="m-0">{{ nativeGames }} native games, and {{ nexusGames }} games with NexusVR.</p>
         <div class="column mt-3">
           <a class="btn btn-light me-2"
-            href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list">Contribute to the
-            list</a>
+            href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list"><IconPlus :size="18"/> Contribute to the list</a>
           <a class="btn btn-outline-light"
-            href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game">Adding VR to your
-            game</a>
+            href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game"><IconExternalLink :size="18"/> Adding VR to your game</a>
         </div>
       </div>
     </div>
@@ -83,29 +83,7 @@ onMounted(() => {
     -->
 
     <div class="d-flex flex-wrap justify-content-center">
-      <a v-for="game in listing" :href="`https://www.roblox.com/games/${game.gameId}`" class="card m-2"
-        style="width: 24rem;">
-        <div class="card-body">
-          <div :style="{ 'background-image': `url(https://assetdelivery.roblox.com/v1/asset/?id=${game.thumbnail})` }"
-            alt="" class="rounded img-fluid mb-2 game-thumbnail"></div>
-
-          <div>
-            <span class="badge text-bg-success" v-if="game.vrType == 'native'">Native</span>
-            <span class="badge text-bg-primary" v-if="game.vrType == 'nexus'">Nexus VR</span>
-            <span class="badge text-bg-light" v-if="game.vrType == 'avatar-gestures'">Avatar Gestures</span>
-            <span class="badge text-bg-secondary ms-2">{{ game.genre }}</span>
-          </div>
-
-          <h3 class="card-title mb-0 mt-1">{{ game.name }}</h3>
-          <div>
-            <p class="mb-0">By {{ game.creator.name }}</p>
-          </div>
-          <div v-if="game.price" class="mt-1">
-            <img src="/robux.svg" alt="R$" height="20">
-            {{ game.price }}
-          </div>
-        </div>
-      </a>
+      <GameCard v-for="g in listing" :game="g"></GameCard>
     </div>
 
     <div class="text-center mt-4 p-5">

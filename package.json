@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tabler/icons-vue": "^3.31.0",
     "axios": "^1.8.4",
     "axios-retry": "^4.5.0",
     "bootstrap": "^5.3.3",

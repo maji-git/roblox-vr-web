@@ -6,6 +6,8 @@ axiosRetry(axios, { retries: 3, retryDelay: () => 5000 });
 
 try { fs.mkdirSync("public/data") } catch {}
 
+const gameTagIDs = {}
+
 function chunkArray(arr, chunkSize = 100) {
     const result = [];
     for (let i = 0; i < arr.length; i += chunkSize) {
@@ -16,6 +18,18 @@ function chunkArray(arr, chunkSize = 100) {
 
 function arrayToUrlParams(name, values) {
     return values.map(value => `${encodeURIComponent(name)}=${encodeURIComponent(value)}`).join('&');
+}
+
+async function parseTagTXT(url, title) {
+    const txt = (await axios.get(url)).data
+
+    for (const l of txt.split("\n")) {
+        if (l.startsWith("#") || l == "") {
+            continue
+        }
+
+        gameTagIDs[l] = title
+    }
 }
 
 async function parseTXT(url, title) {
@@ -29,30 +43,12 @@ async function parseTXT(url, title) {
         }
 
         const universeId = (await axios.get(`https://apis.roblox.com/universes/v1/places/${l}/universe`)).data.universeId
-        //const gameData = (await axios.get(`https://games.roblox.com/v1/games?universeIds=${universeId}`)).data.data[0]
-        //const gameMedias = (await axios.get(`https://games.roblox.com/v2/games/${universeId}/media`)).data.data
-        //const gameImages = gameMedias.filter((e) => e.assetType == "Image")
 
         idData.push({
             gameId: l,
             universeId: universeId
         })
-
-        /*
-        result.push({
-            gameId: l,
-            universeId: universeId,
-            name: gameData.name,
-            price: gameData.price,
-            creator: gameData.creator,
-            maxPlayers: gameData.maxPlayers,
-            genre: gameData.genre_l1,
-            thumbnail: gameImages[0]?.imageId,
-            created: gameData.created,
-            visits: gameData.visits,
-            vrType: title
-        })
-        */
+        
         console.log(l)
     }
 
@@ -89,7 +85,8 @@ async function parseTXT(url, title) {
                 thumbnail: thumb?.thumbnails[0]?.targetId,
                 created: gameData.created,
                 visits: gameData.visits,
-                vrType: title
+                vrType: title,
+                vrTag: gameTagIDs[gameData.rootPlaceId] ?? undefined
             })
             i++
         }
@@ -101,6 +98,9 @@ async function parseTXT(url, title) {
 }
 
 async function main() {
+    parseTagTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/tags/exclusive.txt", "exclusive")
+    parseTagTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/tags/god-like.txt", "god-like")
+
     parseTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/native.txt", "native")
     parseTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/nexus-vr.txt", "nexus")
     parseTXT("https://raw.githubusercontent.com/maji-git/roblox-vr-listing/main/avatar-gestures.txt", "avatar-gestures")
