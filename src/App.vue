@@ -99,6 +99,14 @@ onMounted(() => {
       </div>
     </div>
     -->
+    
+    <div
+      class="alert alert-info"
+      role="alert"
+    >
+      <strong>Game Thumbnails may not load for some games</strong>. We're looking into it!
+    </div>
+    
 
     <div class="d-flex flex-wrap justify-content-center">
       <GameCard v-for="g in listing" :game="g"></GameCard>
