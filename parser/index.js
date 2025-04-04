@@ -82,6 +82,7 @@ async function parseTXT(url, title) {
                 maxPlayers: gameData.maxPlayers,
                 genre: gameData.genre_l1,
                 thumbnail: thumb?.thumbnails[0]?.targetId,
+                thumbURL: thumb?.thumbnails[0]?.imageUrl,
                 created: gameData.created,
                 visits: gameData.visits,
                 favorites: gameData.favoritedCount,

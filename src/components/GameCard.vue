@@ -2,7 +2,7 @@
     <a :href="`https://www.roblox.com/games/${game.gameId}`" class="card m-2"
         style="width: 24rem;">
         <div class="card-body">
-            <div :style="{ 'background-image': `url(https://assetdelivery.roblox.com/v1/asset/?id=${game.thumbnail})` }"
+            <div :style="{ 'background-image': `url(${game.thumbURL})` }"
                 alt="" class="rounded img-fluid mb-2 game-thumbnail"></div>
 
             <div>
