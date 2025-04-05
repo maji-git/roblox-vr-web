@@ -93,9 +93,10 @@ async function parseTXT(url, title) {
         }
     }
 
+    // Sort result based on visits
+    const sortedResults = result.sort((a, b) => b.visits - a.visits)
 
-
-    fs.writeFileSync(`public/data/${title}.json`, JSON.stringify(result))
+    fs.writeFileSync(`public/data/${title}.json`, JSON.stringify(sortedResults))
 }
 
 async function main() {
