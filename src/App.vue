@@ -11,17 +11,29 @@ const nativeGames = ref(0)
 const nexusGames = ref(0)
 const totalGames = ref(0)
 
+const filterVRType = ref("all")
+const filterSortBy = ref("playing")
+
+const reloadList = () => {
+  listing.value = originData.value.sort((a: any, b: any) => b[filterSortBy.value] - a[filterSortBy.value])
+
+  if (filterVRType.value != "all") {
+    listing.value = listing.value.filter((e: any) => e.vrType == filterVRType.value)
+  }
+}
+
 const loadData = async () => {
   const nativeType = (await axios.get("/data/native.json")).data
   const nexusType = (await axios.get("/data/nexus.json")).data
   const avatarGesturesType = (await axios.get("/data/avatar-gestures.json")).data
-  originData.value = nativeType.concat(nexusType).concat(avatarGesturesType).sort((a: any, b: any) => b.visits - a.visits)
-  listing.value = originData.value
+  originData.value = nativeType.concat(nexusType).concat(avatarGesturesType)
 
   nativeGames.value = originData.value.filter((e: any) => e.vrType == "native").length
   nexusGames.value = originData.value.filter((e: any) => e.vrType == "nexus").length
 
   totalGames.value = originData.value.length
+
+  reloadList()
 }
 
 // https://assetdelivery.roblox.com/v1/asset/?id=15330287933
@@ -80,16 +92,18 @@ onMounted(() => {
       </div>
     </div>
     -->
-
-    <!--
+    
     <div class="row mb-2 justify-content-center">
+      <!--
       <div class="col-md-10">
         <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Search..." />
       </div>
+      -->
       <div class="col-md-2">
+        <p class="filter-label">VR type</p>
         <div class="dropdown">
           <select class="btn btn-secondary form-control" type="button"
-            aria-expanded="false">
+            aria-expanded="false" @change="reloadList" v-model="filterVRType">
             <option value="all">All</option>
             <option value="native">Native</option>
             <option value="nexus">Nexus VR</option>
@@ -97,11 +111,22 @@ onMounted(() => {
           </select>
         </div>
       </div>
+
+      <div class="col-md-2">
+        <p class="filter-label">Sort by</p>
+        <div class="dropdown">
+          <select class="btn btn-secondary form-control" type="button"
+            aria-expanded="false" @change="reloadList" v-model="filterSortBy">
+            <option value="playing">Activity</option>
+            <option value="visits">Visits</option>
+            <option value="favorites">Favorites</option>
+          </select>
+        </div>
+      </div>
     </div>
-    -->
 
     <div class="d-flex flex-wrap justify-content-center">
-      <GameCard v-for="g in listing" :game="g"></GameCard>
+      <GameCard v-for="g in listing" :key="g.gameId" :game="g"></GameCard>
     </div>
 
     <div class="text-center mt-4 p-5">

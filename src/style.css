@@ -32,6 +32,12 @@ body {
     }
 }
 
+.filter-label {
+    font-size: 0.9em;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
 .badge svg {
     stroke-width: 3px;
     width: 12px;

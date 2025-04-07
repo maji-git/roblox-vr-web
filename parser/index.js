@@ -85,6 +85,7 @@ async function parseTXT(url, title) {
                 thumbURL: thumb?.thumbnails[0]?.imageUrl,
                 created: gameData.created,
                 visits: gameData.visits,
+                playing: gameData.playing,
                 favorites: gameData.favoritedCount,
                 vrType: title,
                 vrTag: gameTagIDs[gameData.rootPlaceId] ?? undefined
