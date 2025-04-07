@@ -2,7 +2,7 @@ import axios from "axios"
 import axiosRetry from 'axios-retry'
 import fs from "fs"
 
-axiosRetry(axios, { retries: 3, retryDelay: () => 5000 });
+axiosRetry(axios, { retries: 5, retryDelay: () => 10000 });
 
 try { fs.mkdirSync("public/data") } catch {}
 
