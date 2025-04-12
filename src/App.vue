@@ -13,12 +13,17 @@ const totalGames = ref(0)
 
 const filterVRType = ref("all")
 const filterSortBy = ref("playing")
+const filterGenre = ref("all")
+const genreList = ref()
 
 const reloadList = () => {
   listing.value = originData.value.sort((a: any, b: any) => b[filterSortBy.value] - a[filterSortBy.value])
 
   if (filterVRType.value != "all") {
     listing.value = listing.value.filter((e: any) => e.vrType == filterVRType.value)
+  }
+  if (filterGenre.value != "all") {
+    listing.value = listing.value.filter((e: any) => e.genre == filterGenre.value)
   }
 }
 
@@ -32,6 +37,16 @@ const loadData = async () => {
   nexusGames.value = originData.value.filter((e: any) => e.vrType == "nexus").length
 
   totalGames.value = originData.value.length
+  genreList.value = []
+
+  for (const game of originData.value) {
+    if (game.genre == "") {
+      continue
+    }
+    if (!genreList.value.includes(game.genre)) {
+      genreList.value.push(game.genre)
+    }
+  }
 
   reloadList()
 }
@@ -116,6 +131,17 @@ onMounted(() => {
         </div>
       </div>
 
+      <div class="col-md-2">
+        <p class="filter-label">Genre</p>
+        <div class="dropdown">
+          <select class="btn btn-secondary form-control" type="button"
+            aria-expanded="false" @change="reloadList" v-model="filterGenre">
+            <option value="all">All</option>
+            <option v-for="g in genreList" :value="g">{{ g }}</option>
+          </select>
+        </div>
+      </div>
+      
       <div class="col-md-2">
         <p class="filter-label">Sort by</p>
         <div class="dropdown">
