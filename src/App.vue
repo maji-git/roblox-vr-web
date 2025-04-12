@@ -2,7 +2,7 @@
 import GameCard from './components/GameCard.vue';
 import { onMounted, ref } from 'vue';
 import axios from "axios"
-import { IconExternalLink, IconPlus } from "@tabler/icons-vue"
+import { IconBrandDiscord, IconBrandGithub, IconBrandReddit, IconExternalLink, IconPlus } from "@tabler/icons-vue"
 
 const listing = ref()
 const originData = ref()
@@ -52,8 +52,12 @@ onMounted(() => {
         <div class="column mt-3">
           <a class="btn btn-light me-2"
             href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list"><IconPlus :size="18"/> Contribute to the list</a>
-          <a class="btn btn-outline-light"
+          <a class="btn btn-outline-light me-2"
             href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game"><IconExternalLink :size="18"/> Adding VR to your game</a>
+          <a class="btn"
+            href="https://discord.gg/8hKfDq2bRC" target="_blank"><IconBrandDiscord :size="18"/></a>
+          <a class="btn"
+            href="https://www.reddit.com/r/RobloxVR/" target="_blank"><IconBrandReddit :size="18"/></a>
         </div>
 
         <div class="stats row">
