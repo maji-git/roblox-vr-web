@@ -136,6 +136,7 @@ onMounted(() => {
     <div class="text-center mt-4 p-5">
       <p class="m-0">Made by maji!</p>
       <a href="https://himaji.xyz">himaji.xyz</a>
+      <p class="m-0 text-muted">Activity is recorded when the site updates, and may be inaccurate</p>
     </div>
   </div>
 </template>
