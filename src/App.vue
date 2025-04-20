@@ -5,7 +5,10 @@ import axios from "axios"
 import { IconBrandDiscord, IconBrandGithub, IconBrandReddit, IconExternalLink, IconPlus } from "@tabler/icons-vue"
 
 const listing = ref()
+const dataPages = ref()
 const originData = ref()
+const currentPage = ref(0)
+const pageCount = ref(0)
 
 const nativeGames = ref(0)
 const nexusGames = ref(0)
@@ -16,15 +19,39 @@ const filterSortBy = ref("playing")
 const filterGenre = ref("all")
 const genreList = ref()
 
-const reloadList = () => {
-  listing.value = originData.value.sort((a: any, b: any) => b[filterSortBy.value] - a[filterSortBy.value])
+function splitArray(arr: any[], every: number) {
+  const result = [];
+  for (let i = 0; i < arr.length; i += every) {
+    result.push(arr.slice(i, i + every));
+  }
+  return result;
+}
+
+const reloadList = (resetPage: boolean = false) => {
+  if (resetPage == true) {
+    currentPage.value = 0
+  }
+  let data = originData.value
+
+  data = originData.value.sort((a: any, b: any) => b[filterSortBy.value] - a[filterSortBy.value])
 
   if (filterVRType.value != "all") {
-    listing.value = listing.value.filter((e: any) => e.vrType == filterVRType.value)
+    data = data.filter((e: any) => e.vrType == filterVRType.value)
   }
   if (filterGenre.value != "all") {
-    listing.value = listing.value.filter((e: any) => e.genre == filterGenre.value)
+    data = data.filter((e: any) => e.genre == filterGenre.value)
   }
+
+  dataPages.value = splitArray(data, 24)
+  pageCount.value = dataPages.value.length
+  console.log(pageCount.value)
+  console.log(currentPage.value)
+  listing.value = dataPages.value[currentPage.value] ?? []
+}
+
+const goToPage = (page: number) => {
+  currentPage.value = page
+  reloadList(false)
 }
 
 const loadData = async () => {
@@ -66,13 +93,19 @@ onMounted(() => {
         <p v-if="originData" class="m-0">{{ nativeGames }} native games, and {{ nexusGames }} games with NexusVR.</p>
         <div class="column mt-3">
           <a class="btn btn-light me-2"
-            href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list"><IconPlus :size="18"/> Contribute to the list</a>
+            href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list">
+            <IconPlus :size="18" /> Contribute to the list
+          </a>
           <a class="btn btn-outline-light me-2"
-            href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game"><IconExternalLink :size="18"/> Adding VR to your game</a>
-          <a class="btn"
-            href="https://discord.gg/8hKfDq2bRC" target="_blank"><IconBrandDiscord :size="18"/></a>
-          <a class="btn"
-            href="https://www.reddit.com/r/RobloxVR/" target="_blank"><IconBrandReddit :size="18"/></a>
+            href="https://github.com/maji-git/roblox-vr-listing/wiki/Adding-VR-Support-to-your-game">
+            <IconExternalLink :size="18" /> Adding VR to your game
+          </a>
+          <a class="btn" href="https://discord.gg/8hKfDq2bRC" target="_blank">
+            <IconBrandDiscord :size="18" />
+          </a>
+          <a class="btn" href="https://www.reddit.com/r/RobloxVR/" target="_blank">
+            <IconBrandReddit :size="18" />
+          </a>
         </div>
 
         <div class="stats">
@@ -111,7 +144,7 @@ onMounted(() => {
       </div>
     </div>
     -->
-    
+
     <div class="row mb-2 justify-content-center">
       <!--
       <div class="col-md-10">
@@ -121,8 +154,8 @@ onMounted(() => {
       <div class="col-md-2">
         <p class="filter-label">VR type</p>
         <div class="dropdown">
-          <select class="btn btn-secondary form-control" type="button"
-            aria-expanded="false" @change="reloadList" v-model="filterVRType">
+          <select class="btn btn-secondary form-control" type="button" aria-expanded="false" @change="reloadList(true)"
+            v-model="filterVRType">
             <option value="all">All</option>
             <option value="native">Native</option>
             <option value="nexus">Nexus VR</option>
@@ -134,19 +167,19 @@ onMounted(() => {
       <div class="col-md-2">
         <p class="filter-label">Genre</p>
         <div class="dropdown">
-          <select class="btn btn-secondary form-control" type="button"
-            aria-expanded="false" @change="reloadList" v-model="filterGenre">
+          <select class="btn btn-secondary form-control" type="button" aria-expanded="false" @change="reloadList(true)"
+            v-model="filterGenre">
             <option value="all">All</option>
             <option v-for="g in genreList" :value="g">{{ g }}</option>
           </select>
         </div>
       </div>
-      
+
       <div class="col-md-2">
         <p class="filter-label">Sort by</p>
         <div class="dropdown">
-          <select class="btn btn-secondary form-control" type="button"
-            aria-expanded="false" @change="reloadList" v-model="filterSortBy">
+          <select class="btn btn-secondary form-control" type="button" aria-expanded="false" @change="reloadList(true)"
+            v-model="filterSortBy">
             <option value="playing">Activity</option>
             <option value="visits">Visits</option>
             <option value="favorites">Favorites</option>
@@ -159,7 +192,17 @@ onMounted(() => {
       <GameCard v-for="g in listing" :key="g.gameId" :game="g"></GameCard>
     </div>
 
-    <div class="text-center mt-4 p-5">
+    <div class="d-flex justify-content-center mt-4" v-if="pageCount != 0">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" v-if="!(currentPage <= 0)"><a @click="goToPage(currentPage - 1)" class="page-link">Previous</a></li>
+          <li class="page-item" v-for="i in pageCount" :class="{'active': currentPage + 1 == i}"><a @click="goToPage(i - 1)" class="page-link">{{ i }}</a></li>
+          <li class="page-item" v-if="!(currentPage + 1 >= pageCount)"><a @click="goToPage(currentPage + 1)" class="page-link">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="text-center p-5">
       <p class="m-0">Made by maji!</p>
       <a href="https://himaji.xyz">himaji.xyz</a>
       <p class="m-0 text-muted">Activity is recorded when the site updates, and may be inaccurate</p>

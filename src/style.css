@@ -103,3 +103,8 @@ body {
     -webkit-text-fill-color: transparent;
     height: 120px;
 }
+
+.pagination .page-link {
+    cursor: pointer;
+    pointer-events:fill;
+}
