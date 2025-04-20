@@ -75,16 +75,16 @@ onMounted(() => {
             href="https://www.reddit.com/r/RobloxVR/" target="_blank"><IconBrandReddit :size="18"/></a>
         </div>
 
-        <div class="stats row">
-          <div class="col-md-3">
+        <div class="stats">
+          <div>
             <p class="sub">NATIVE</p>
             <h1 class="num">{{ nativeGames }}</h1>
           </div>
-          <div class="col-md-3">
+          <div>
             <p class="sub">NEXUS</p>
             <h1 class="num">{{ nexusGames }}</h1>
           </div>
-          <div class="col-md-3">
+          <div>
             <p class="sub">TOTAL</p>
             <h1 class="num">{{ totalGames }}</h1>
           </div>

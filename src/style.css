@@ -77,10 +77,11 @@ body {
     right: 30px;
     text-align: end;
     font-family: "Funnel Display", sans-serif;
+    display: flex;
 }
 
 .banner .stats > div {
-    width: 160px;
+    margin-left: 2em;
 }
 
 .banner .stats p {
