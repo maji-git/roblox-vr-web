@@ -2,7 +2,7 @@ import axios from "axios"
 import axiosRetry from 'axios-retry'
 import fs from "fs"
 
-axiosRetry(axios, { retries: 5, retryDelay: () => 10000 });
+axiosRetry(axios, { retries: 5, retryDelay: () => 50000 });
 
 try { fs.mkdirSync("public/data") } catch {}
 
@@ -36,6 +36,7 @@ async function parseTXT(url, title) {
     const txt = (await axios.get(url)).data
     const result = []
     const idData = []
+    const gameIDData = []
 
     for (const l of txt.split("\n")) {
         if (l.startsWith("#") || l == "") {
@@ -44,6 +45,7 @@ async function parseTXT(url, title) {
 
         const universeId = (await axios.get(`https://apis.roblox.com/universes/v1/places/${l}/universe`)).data.universeId
 
+        gameIDData.push(l)
         idData.push({
             gameId: l,
             universeId: universeId
@@ -96,6 +98,7 @@ async function parseTXT(url, title) {
     const sortedResults = result.sort((a, b) => b.visits - a.visits)
 
     fs.writeFileSync(`public/data/${title}.json`, JSON.stringify(sortedResults))
+    fs.writeFileSync(`public/data/${title}-ids.json`, JSON.stringify(gameIDData))
 }
 
 async function main() {
