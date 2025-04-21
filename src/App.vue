@@ -17,6 +17,7 @@ const totalGames = ref(0)
 const filterVRType = ref("all")
 const filterSortBy = ref("playing")
 const filterGenre = ref("all")
+const filterSearchParam = ref("")
 const genreList = ref()
 
 function splitArray(arr: any[], every: number) {
@@ -40,6 +41,14 @@ const reloadList = (resetPage: boolean = false) => {
   }
   if (filterGenre.value != "all") {
     data = data.filter((e: any) => e.genre == filterGenre.value)
+  }
+  if (filterSearchParam.value != "") {
+    data = data.filter((e: any) => {
+      if (filterSearchParam.value == e.gameId) {
+        return true
+      }
+      return e.name.toLowerCase().search(filterSearchParam.value.toLowerCase()) != -1
+    })
   }
 
   dataPages.value = splitArray(data, 24)
@@ -89,8 +98,7 @@ onMounted(() => {
     <div class="w-100 banner">
       <div>
         <h1>Roblox VR Games Listing</h1>
-        <p class="mb-0">List of Roblox VR games I found. Feel free to contribute! ^_^</p>
-        <p v-if="originData" class="m-0">{{ nativeGames }} native games, and {{ nexusGames }} games with NexusVR.</p>
+        <p class="mb-0">List of Roblox VR compatible games. Feel free to contribute! ^_^</p>
         <div class="column mt-3">
           <a class="btn btn-light me-2"
             href="https://github.com/maji-git/roblox-vr-listing/wiki/Contributing-to-the-list">
@@ -145,12 +153,13 @@ onMounted(() => {
     </div>
     -->
 
-    <div class="row mb-2 justify-content-center">
-      <!--
-      <div class="col-md-10">
-        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Search..." />
+    <div class="row mb-3 justify-content-center">
+      <div class="col-md-8">
+        <input type="text" class="form-control" @input="reloadList(true)" v-model="filterSearchParam" placeholder="Search..." />
       </div>
-      -->
+    </div>
+
+    <div class="row mb-2 justify-content-center">
       <div class="col-md-2">
         <p class="filter-label">VR type</p>
         <div class="dropdown">
@@ -195,9 +204,12 @@ onMounted(() => {
     <div class="d-flex justify-content-center mt-4" v-if="pageCount != 0">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item" v-if="!(currentPage <= 0)"><a @click="goToPage(currentPage - 1)" class="page-link">Previous</a></li>
-          <li class="page-item" v-for="i in pageCount" :class="{'active': currentPage + 1 == i}"><a @click="goToPage(i - 1)" class="page-link">{{ i }}</a></li>
-          <li class="page-item" v-if="!(currentPage + 1 >= pageCount)"><a @click="goToPage(currentPage + 1)" class="page-link">Next</a></li>
+          <li class="page-item" v-if="!(currentPage <= 0)"><a @click="goToPage(currentPage - 1)"
+              class="page-link">Previous</a></li>
+          <li class="page-item" v-for="i in pageCount" :class="{ 'active': currentPage + 1 == i }"><a
+              @click="goToPage(i - 1)" class="page-link">{{ i }}</a></li>
+          <li class="page-item" v-if="!(currentPage + 1 >= pageCount)"><a @click="goToPage(currentPage + 1)"
+              class="page-link">Next</a></li>
         </ul>
       </nav>
     </div>
@@ -206,6 +218,7 @@ onMounted(() => {
       <p class="m-0">Made by maji!</p>
       <a href="https://himaji.xyz">himaji.xyz</a>
       <p class="m-0 text-muted">Activity is recorded when the site updates, and may be inaccurate</p>
+      <p class="m-0 text-muted">This website is not affiliated with Roblox</p>
     </div>
   </div>
 </template>
