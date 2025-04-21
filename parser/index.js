@@ -22,14 +22,19 @@ function arrayToUrlParams(name, values) {
 
 async function parseTagTXT(url, title) {
     const txt = (await axios.get(url)).data
+    const ids = []
 
     for (const l of txt.split("\n")) {
         if (l.startsWith("#") || l == "") {
             continue
         }
 
+        ids.push(l)
+
         gameTagIDs[l] = title
     }
+
+    fs.writeFileSync(`public/data/tag-${title}.json`, JSON.stringify(ids))
 }
 
 async function parseTXT(url, title) {
