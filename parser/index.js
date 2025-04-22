@@ -59,7 +59,7 @@ async function parseTXT(url, title) {
         console.log(l)
     }
 
-    const chunked = chunkArray(idData, 90)
+    const chunked = chunkArray(idData, 50)
 
     for (const c of chunked) {
         let placeIdParam = ""
