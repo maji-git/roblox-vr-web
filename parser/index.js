@@ -75,11 +75,17 @@ async function parseTXT(url, title) {
         placeIdParam = arrayToUrlParams("universeIds", universeIds)
 
         const gameDatas = (await axios.get(`https://games.roblox.com/v1/games?${placeIdParam}`)).data.data
-        const thumbnailDatas = (await axios.get(`https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=${universeIds.join(",")}&countPerUniverse=1&defaults=true&size=768x432&format=Png&isCircular=false`)).data.data
+        const thumbnailDatas = (await axios.get(`https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=${universeIds.join(",")}&countPerUniverse=2&defaults=false&size=768x432&format=Png&isCircular=false`)).data.data
         let i = 0
 
         for (const gameData of gameDatas) {
             const thumb = thumbnailDatas.find((e) => e.universeId == gameData.id)
+            let thumbURL = ""
+
+            if (thumb && thumb.thumbnails) {
+                thumbURL = thumb.thumbnails[0].imageUrl
+            }
+            
             result.push({
                 gameId: gameData.rootPlaceId,
                 universeId: gameData.id,
@@ -87,7 +93,7 @@ async function parseTXT(url, title) {
                 price: gameData.price,
                 creator: gameData.creator,
                 genre: gameData.genre_l1,
-                thumbURL: thumb?.thumbnails[0]?.imageUrl,
+                thumbURL,
                 created: gameData.created,
                 visits: gameData.visits,
                 playing: gameData.playing,
