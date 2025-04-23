@@ -97,9 +97,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <a class="alert top-promo" target="_none" href="https://chromewebstore.google.com/detail/roblox-vr-looker/kabpmlfjdgofjhoefacbpfommejnmedi?authuser=0&hl=th">
-    Quickly check VR support using the new Chrome extension! <IconArrowRight :size="18"/>
-  </a>
   <div class="container">
     <div class="w-100 banner">
       <div>
