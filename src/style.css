@@ -1,6 +1,6 @@
 body {
     font-family: "Funnel Sans", sans-serif;
-    background-color: rgb(26, 26, 26);
+    background-color: hsl(0, 0%, 10%);
 }
 
 .banner {
@@ -108,4 +108,22 @@ body {
 .pagination .page-link {
     cursor: pointer;
     pointer-events:fill;
+}
+
+.top-promo {
+    display: block;
+    width: 100%;
+    padding: 8px 0px;
+    text-align: center;
+    background-color: hsl(0, 0%, 15%);
+    text-decoration: none;
+    transition: background-color 0.15s;
+}
+
+.top-promo:hover {
+    background-color: hsl(0, 0%, 18%);
+}
+
+.top-promo:active {
+    background-color: hsl(0, 0%, 12%);
 }

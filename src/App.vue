@@ -2,7 +2,7 @@
 import GameCard from './components/GameCard.vue';
 import { onMounted, ref } from 'vue';
 import axios from "axios"
-import { IconBrandDiscord, IconBrandGithub, IconBrandReddit, IconExternalLink, IconPlus } from "@tabler/icons-vue"
+import { IconArrowRight, IconBrandDiscord, IconBrandGithub, IconBrandReddit, IconExternalLink, IconPlus } from "@tabler/icons-vue"
 
 const listing = ref()
 const dataPages = ref()
@@ -94,6 +94,9 @@ onMounted(() => {
 </script>
 
 <template>
+  <a class="alert top-promo" target="_none" href="https://chromewebstore.google.com/detail/roblox-vr-looker/kabpmlfjdgofjhoefacbpfommejnmedi?authuser=0&hl=th">
+    Check VR support easier with the new Chrome extension! <IconArrowRight/>
+  </a>
   <div class="container">
     <div class="w-100 banner">
       <div>
