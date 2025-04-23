@@ -13,6 +13,7 @@ const pageCount = ref(0)
 const nativeGames = ref(0)
 const nexusGames = ref(0)
 const totalGames = ref(0)
+const loading = ref()
 
 const filterVRType = ref("all")
 const filterSortBy = ref("playing")
@@ -64,6 +65,7 @@ const goToPage = (page: number) => {
 }
 
 const loadData = async () => {
+  loading.value = true
   const nativeType = (await axios.get("/data/native.json")).data
   const nexusType = (await axios.get("/data/nexus.json")).data
   const avatarGesturesType = (await axios.get("/data/avatar-gestures.json")).data
@@ -84,6 +86,7 @@ const loadData = async () => {
     }
   }
 
+  loading.value = false
   reloadList()
 }
 
@@ -201,6 +204,10 @@ onMounted(() => {
     </div>
 
     <div class="d-flex flex-wrap justify-content-center">
+      <div class="w-100 d-flex justify-content-center p-5" v-if="loading">
+        <div class="spinner-border text-light" role="status"></div>
+      </div>
+
       <GameCard v-for="g in listing" :key="g.gameId" :game="g"></GameCard>
     </div>
 
