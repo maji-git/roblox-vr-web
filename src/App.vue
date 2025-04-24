@@ -100,6 +100,7 @@ onMounted(() => {
   <div class="container">
     <div class="w-100 banner">
       <div>
+        <a class="banner-credit" href="https://www.roblox.com/games/10707252093/Flower-Garden-in-the-Clouds">Flower Garden in the Clouds 🌼☁️ by @Aerophagia</a>
         <h1>Roblox VR Games Listing</h1>
         <p class="mb-0">List of Roblox VR compatible games. Feel free to contribute! ^_^</p>
         <div class="column mt-3">

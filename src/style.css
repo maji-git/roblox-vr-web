@@ -8,9 +8,9 @@ body {
     display: flex;
     justify-content: start;
     align-items: flex-end;
-    background-image: url(/bg.png);
+    background-image: url(/bg.png?v=2);
     background-size: cover;
-    background-position: center;
+    background-position: bottom;
     border-radius: 8px;
     margin: 16px 0px;
     position: relative;
@@ -27,7 +27,7 @@ body {
         padding: 1em;
     }
 
-    .banner .stats {
+    .banner .stats, .banner-credit {
         display: none !important;
     }
 }
@@ -126,4 +126,25 @@ body {
 
 .top-promo:active {
     background-color: hsl(0, 0%, 12%);
+}
+
+.banner-credit {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    padding: 8px 16px;
+    border-radius: 16px;
+    opacity: 0.5;
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.15s;
+}
+
+.banner-credit:hover {
+    opacity: 0.8;
+}
+
+.banner-credit:active {
+    opacity: 0.3;
 }
