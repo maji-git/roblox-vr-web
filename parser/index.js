@@ -1,7 +1,9 @@
 import axios from "axios"
 import axiosRetry from 'axios-retry'
 import fs from "fs"
+import dotenv from "dotenv"
 
+dotenv.config()
 axiosRetry(axios, { retries: 5, retryDelay: () => 50000 });
 
 try { fs.mkdirSync("public/data") } catch {}
@@ -48,15 +50,28 @@ async function parseTXT(url, title) {
             continue
         }
 
-        const universeId = (await axios.get(`https://apis.roblox.com/universes/v1/places/${l}/universe`)).data.universeId
-
         gameIDData.push(l)
-        idData.push({
-            gameId: l,
-            universeId: universeId
-        })
-        
-        console.log(l)
+    }
+
+    const gameIDChunked = chunkArray(gameIDData, 50)
+
+    for (const placeIds of gameIDChunked) {
+        let placeIdParam = ""
+
+        placeIdParam = arrayToUrlParams("placeIds", placeIds)
+
+        const gameDatas = (await axios.get(`https://games.roblox.com/v1/games/multiget-place-details?${placeIdParam}`, {
+            headers: {
+                "Cookie": `.ROBLOSECURITY=${process.env.ROBLOX_KEY}`
+            }
+        })).data
+
+        for (const d of gameDatas) {
+            idData.push({
+                gameId: placeIds,
+                universeId: d.universeId
+            })
+        }
     }
 
     const chunked = chunkArray(idData, 50)
@@ -66,7 +81,6 @@ async function parseTXT(url, title) {
         let universeIds = []
 
         for (const idd of c) {
-            const gameId = idd.gameId
             const universeId = idd.universeId
 
             universeIds.push(universeId)
