@@ -100,7 +100,8 @@ onMounted(() => {
   <div class="container">
     <div class="w-100 banner">
       <div>
-        <a class="banner-credit" href="https://www.roblox.com/games/10707252093/Flower-Garden-in-the-Clouds">Flower Garden in the Clouds 🌼☁️ by @Aerophagia</a>
+        <a class="banner-credit" href="https://www.roblox.com/games/10707252093/Flower-Garden-in-the-Clouds">Flower
+          Garden in the Clouds 🌼☁️ by @Aerophagia</a>
         <h1>Roblox VR Games Listing</h1>
         <p class="mb-0">List of Roblox VR compatible games. Feel free to contribute! ^_^</p>
         <div class="column mt-3">
@@ -137,29 +138,10 @@ onMounted(() => {
       </div>
     </div>
 
-    <!--
-    <div class="text-center mb-2 mt-2">
-      <h3>Supported Types</h3>
-      <div class="row">
-        <div class="col-md-4">
-          <h4>Native</h4>
-          <p>Games with Roblox VR supported out of the box, including VR originals, god-like, and custom VR implementation.</p>
-        </div>
-        <div class="col-md-4">
-          <h4>Nexus VR</h4>
-          <p>Game with VR support through Nexus VR, an open-source VR system developed by TheNexusAvenger. Which allow you to animate your body in VR.</p>
-        </div>
-        <div class="col-md-4">
-          <h4>Avatar Gestures</h4>
-          <p>Game that uses Roblox's AvatarGestures API. Which allow you to animate your body in VR.</p>
-        </div>
-      </div>
-    </div>
-    -->
-
     <div class="row mb-3 justify-content-center">
       <div class="col-md-8">
-        <input type="text" class="form-control" @input="reloadList(true)" v-model="filterSearchParam" placeholder="Search..." />
+        <input type="text" class="form-control" @input="reloadList(true)" v-model="filterSearchParam"
+          placeholder="Search..." />
       </div>
     </div>
 
@@ -222,8 +204,38 @@ onMounted(() => {
       </nav>
     </div>
 
+    <hr>
+    <div class="info-section text-center mt-4 container">
+      <h2>About this website</h2>
+      <p>This website features a community-curated list of VR-compatible Roblox games, along with helpful resources for getting started with Roblox VR.</p>
+
+
+      <div class="text-center mt-4">
+        <h3>Supported Types</h3>
+        <div class="row">
+          <div class="col-md-4">
+            <img src="/types-img/Native.png" height="180" alt="">
+            <h4>Native</h4>
+            <p>Games with Roblox VR supported out of the box, including VR originals, god-like, and custom VR
+              implementation.</p>
+          </div>
+          <div class="col-md-4">
+            <img src="/types-img/Nexus.png" height="180" alt="">
+            <h4>Nexus VR</h4>
+            <p>Game with VR support through Nexus VR, an open-source VR system developed by TheNexusAvenger. Which allow
+              you to animate your body in VR.</p>
+          </div>
+          <div class="col-md-4">
+            <img src="/types-img/AvatarGestures.png" height="180" alt="">
+            <h4>Avatar Gestures</h4>
+            <p>Game that uses Roblox's AvatarGestures API. Which allow you to animate your body in VR.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="text-center p-5">
-      <p class="m-0">Made by maji!</p>
+      <p class="m-0">Made by maji! <a href="https://www.roblox.com/users/5233412345/profile" target="_blank">@majimagit</a></p>
       <a href="https://himaji.xyz">himaji.xyz</a>
       <p class="m-0 text-muted">Activity is recorded when the site updates, and may be inaccurate</p>
       <p class="m-0 text-muted">This website is not affiliated with Roblox</p>
