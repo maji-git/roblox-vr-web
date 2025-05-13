@@ -2,7 +2,7 @@
 import GameCard from './components/GameCard.vue';
 import { onMounted, ref } from 'vue';
 import axios from "axios"
-import { IconArrowRight, IconBrandDiscord, IconBrandGithub, IconBrandReddit, IconExternalLink, IconPlus } from "@tabler/icons-vue"
+import { IconArrowRight, IconBrandDiscord, IconBrandGithub, IconBrandReddit, IconExternalLink, IconPlus, IconSpeakerphone } from "@tabler/icons-vue"
 
 const listing = ref()
 const dataPages = ref()
@@ -97,6 +97,10 @@ onMounted(() => {
 </script>
 
 <template>
+  <a class="alert top-promo" target="_blank" href="https://devforum.roblox.com/t/unable-to-access-microphone-in-vr/3648709">
+   <IconSpeakerphone :size="18"/>  Known issue: VR users unable to access Voice chat
+  </a>
+
   <div class="container">
     <div class="w-100 banner">
       <div>
