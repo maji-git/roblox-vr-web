@@ -97,10 +97,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <a class="alert top-promo" target="_blank" href="https://devforum.roblox.com/t/unable-to-access-microphone-in-vr/3648709">
-   <IconSpeakerphone :size="18"/>  Known issue: VR users unable to access Voice chat
-  </a>
-
   <div class="container">
     <div class="w-100 banner">
       <div>
