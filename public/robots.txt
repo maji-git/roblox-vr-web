@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rbxvr.himaji.xyz/sitemap.xml
